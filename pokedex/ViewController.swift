@@ -8,9 +8,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let networking = Networking()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("hi")
+        Task {
+            do {
+                let pokedexEntries = try await networking.fetchPokedex()
+                print(pokedexEntries)
+            }
+        }
         // Do any additional setup after loading the view.
     }
 
