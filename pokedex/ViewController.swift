@@ -7,20 +7,52 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PokemonCell: UITableViewCell {
+    
+}
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let networking = Networking()
-
+    
+    var pokedexEntries: [Result] = []
+    
+    @IBOutlet weak var pokedexTable: UITableView!
+    
     override func viewDidLoad() {
+        pokedexTable.delegate = self
+        pokedexTable.dataSource = self
+        pokedexTable.register(PokemonCell.self, forCellReuseIdentifier: "PokemonCell")
         super.viewDidLoad()
-        print("hi")
         Task {
             do {
-                let pokedexEntries = try await networking.fetchPokedex()
-                print(pokedexEntries)
+                let pokedexEntriesResult = try await networking.fetchPokedex()
+                // print(type(of: pokedexEntries.results))
+                await MainActor.run {
+                    pokedexEntries = pokedexEntriesResult.results ?? []
+                    pokedexTable.reloadData()
+                    if (pokedexEntries.count == 0) {
+                        navigationItem.title = "Network error"
+                    }
+                }
+                // now we need to map value of this ^ list into the table somehow, check muni app
             }
         }
         // Do any additional setup after loading the view.
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pokedexEntries.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell") as? PokemonCell else {
+            return UITableViewCell()
+        }
+        let name = pokedexEntries[indexPath.row].name
+        cell.textLabel?.text = name
+        return cell
+
     }
 
 
