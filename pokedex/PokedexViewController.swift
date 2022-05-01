@@ -11,7 +11,7 @@ class PokemonCell: UITableViewCell {
     
 }
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let networking = Networking()
     
@@ -49,10 +49,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell") as? PokemonCell else {
             return UITableViewCell()
         }
-        let name = pokedexEntries[indexPath.row].name
+        let name = pokedexEntries[indexPath.row].name?.firstCapitalized
         cell.textLabel?.text = name
         return cell
-
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("section: \(indexPath.section)")
+        print("row: \(indexPath.row)")
+        performSegue(withIdentifier: "ToPokemonSegue", sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let pokemonViewController = segue.destination as? PokemonViewController else {
+            return
+        }
+        guard let indexPath = sender as? IndexPath else {
+            return
+        }
+        pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
     }
 
 
