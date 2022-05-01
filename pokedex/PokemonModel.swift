@@ -12,7 +12,7 @@ struct PokemonModel: Codable {
     let forms: [Species]?
     let gameIndices: [GameIndex]?
     let height: Int?
-    let heldItems: [JSONAny]?
+    let heldItems: [HeldItem]?
     let id: Int?
     let isDefault: Bool?
     let locationAreaEncounters: String?
@@ -70,6 +70,23 @@ struct GameIndex: Codable {
         case gameIndex = "game_index"
         case version
     }
+}
+
+// MARK: - HeldItem
+struct HeldItem: Codable {
+    let item: Species?
+    let versionDetails: [VersionDetail]?
+
+    enum CodingKeys: String, CodingKey {
+        case item
+        case versionDetails = "version_details"
+    }
+}
+
+// MARK: - VersionDetail
+struct VersionDetail: Codable {
+    let rarity: Int?
+    let version: Species?
 }
 
 // MARK: - Move
@@ -140,14 +157,8 @@ struct Versions: Codable {
 
 // MARK: - Sprites
 class Sprites: Codable {
-    let backDefault: String?
-    let backFemale: NSNull?
-    let backShiny: String?
-    let backShinyFemale: NSNull?
-    let frontDefault: String?
-    let frontFemale: NSNull?
-    let frontShiny: String?
-    let frontShinyFemale: NSNull?
+    let backDefault, backFemale, backShiny, backShinyFemale: String?
+    let frontDefault, frontFemale, frontShiny, frontShinyFemale: String?
     let other: Other?
     let versions: Versions?
     let animated: Sprites?
@@ -164,7 +175,7 @@ class Sprites: Codable {
         case other, versions, animated
     }
 
-    init(backDefault: String?, backFemale: NSNull?, backShiny: String?, backShinyFemale: NSNull?, frontDefault: String?, frontFemale: NSNull?, frontShiny: String?, frontShinyFemale: NSNull?, other: Other?, versions: Versions?, animated: Sprites?) {
+    init(backDefault: String?, backFemale: String?, backShiny: String?, backShinyFemale: String?, frontDefault: String?, frontFemale: String?, frontShiny: String?, frontShinyFemale: String?, other: Other?, versions: Versions?, animated: Sprites?) {
         self.backDefault = backDefault
         self.backFemale = backFemale
         self.backShiny = backShiny
@@ -265,10 +276,7 @@ struct Emerald: Codable {
 
 // MARK: - Home
 struct Home: Codable {
-    let frontDefault: String?
-    let frontFemale: NSNull?
-    let frontShiny: String?
-    let frontShinyFemale: NSNull?
+    let frontDefault, frontFemale, frontShiny, frontShinyFemale: String?
 
     enum CodingKeys: String, CodingKey {
         case frontDefault = "front_default"
@@ -292,7 +300,7 @@ struct GenerationVii: Codable {
 // MARK: - DreamWorld
 struct DreamWorld: Codable {
     let frontDefault: String?
-    let frontFemale: NSNull?
+    let frontFemale: JSONNull2?
 
     enum CodingKeys: String, CodingKey {
         case frontDefault = "front_default"
@@ -346,9 +354,9 @@ struct TypeElement: Codable {
 
 // MARK: - Encode/decode helpers
 
-class NSNull: Codable, Hashable {
+class JSONNull2: Codable, Hashable {
 
-    public static func == (lhs: NSNull, rhs: NSNull) -> Bool {
+    public static func == (lhs: JSONNull2, rhs: JSONNull2) -> Bool {
         return true
     }
 
@@ -361,7 +369,7 @@ class NSNull: Codable, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+            throw DecodingError.typeMismatch(JSONNull2.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
         }
     }
 
@@ -419,7 +427,7 @@ class JSONAny: Codable {
             return value
         }
         if container.decodeNil() {
-            return JSONNull()
+            return JSONNull2()
         }
         throw decodingError(forCodingPath: container.codingPath)
     }
@@ -439,7 +447,7 @@ class JSONAny: Codable {
         }
         if let value = try? container.decodeNil() {
             if value {
-                return JSONNull()
+                return JSONNull2()
             }
         }
         if var container = try? container.nestedUnkeyedContainer() {
@@ -466,7 +474,7 @@ class JSONAny: Codable {
         }
         if let value = try? container.decodeNil(forKey: key) {
             if value {
-                return JSONNull()
+                return JSONNull2()
             }
         }
         if var container = try? container.nestedUnkeyedContainer(forKey: key) {
@@ -506,7 +514,7 @@ class JSONAny: Codable {
                 try container.encode(value)
             } else if let value = value as? String {
                 try container.encode(value)
-            } else if value is JSONNull {
+            } else if value is JSONNull2 {
                 try container.encodeNil()
             } else if let value = value as? [Any] {
                 var container = container.nestedUnkeyedContainer()
@@ -531,7 +539,7 @@ class JSONAny: Codable {
                 try container.encode(value, forKey: key)
             } else if let value = value as? String {
                 try container.encode(value, forKey: key)
-            } else if value is JSONNull {
+            } else if value is JSONNull2 {
                 try container.encodeNil(forKey: key)
             } else if let value = value as? [Any] {
                 var container = container.nestedUnkeyedContainer(forKey: key)
@@ -554,7 +562,7 @@ class JSONAny: Codable {
             try container.encode(value)
         } else if let value = value as? String {
             try container.encode(value)
-        } else if value is JSONNull {
+        } else if value is JSONNull2 {
             try container.encodeNil()
         } else {
             throw encodingError(forValue: value, codingPath: container.codingPath)
@@ -585,4 +593,3 @@ class JSONAny: Codable {
         }
     }
 }
-

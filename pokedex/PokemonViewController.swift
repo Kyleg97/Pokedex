@@ -61,8 +61,11 @@ class PokemonViewController: UIViewController {
         nameLabel.text = pokemonName?.firstCapitalized
         Task {
             do {
+                print("calling pokemonResult...")
                 let pokemonResult = try await networking.fetchPokemon(name: pokemonName!)
                 // print(type(of: pokedexEntries.results))
+                print("printing the result after fetch...")
+                print(pokemonResult)
                 print("hi")
                 await MainActor.run {
                     pokemon = pokemonResult
@@ -83,9 +86,9 @@ class PokemonViewController: UIViewController {
                     var typeString = ""
                     let types = pokemon?.types!
                     for i in 0...types!.count-1 {
-                        typeString += (types![i].type?.name)!
+                        typeString += (types![i].type?.name?.firstCapitalized)!
                         if (i == 0) {
-                            typeString += " "
+                            typeString += " / "
                         }
                     }
                     typeLabel.text = typeString
