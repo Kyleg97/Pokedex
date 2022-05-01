@@ -10,3 +10,11 @@ import Foundation
 extension StringProtocol {
     var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
 }
+
+func hectogramsToLbs(weight: Int) -> Int {
+    return weight / Int(4.536)
+}
+
+func decimetersToInches(height: Int) -> Int {
+    return height * Int(3.937)
+}
