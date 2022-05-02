@@ -9,6 +9,7 @@ import UIKit
 
 class PokemonViewController: UIViewController {
     
+    var activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var entryNumLabel: UILabel!
@@ -56,13 +57,29 @@ class PokemonViewController: UIViewController {
     
     override func viewDidLoad() {
         // yeet
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.tag = 100
+        view.addSubview(blurEffectView)
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
         print("hey there, we're in the correct view controller!")
         print("pokemon name: \(pokemonName)")
         nameLabel.text = pokemonName?.firstCapitalized
         Task {
             do {
+                activityIndicator.startAnimating()
                 print("calling pokemonResult...")
                 let pokemonResult = try await networking.fetchPokemon(name: pokemonName!)
+                self.activityIndicator.stopAnimating()
+                // remove blur subview
+                self.view.viewWithTag(100)?.removeFromSuperview()
                 // print(type(of: pokedexEntries.results))
                 print("printing the result after fetch...")
                 print(pokemonResult)

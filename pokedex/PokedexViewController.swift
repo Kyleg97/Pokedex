@@ -24,6 +24,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         pokedexTable.dataSource = self
         pokedexTable.register(PokemonCell.self, forCellReuseIdentifier: "PokemonCell")
         super.viewDidLoad()
+        
         Task {
             do {
                 let pokedexEntriesResult = try await networking.fetchPokedex()
