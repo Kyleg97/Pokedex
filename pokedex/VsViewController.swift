@@ -23,7 +23,7 @@ class VsViewController: UIViewController {
     @IBOutlet weak var pokemonImage2: UIImageView!
     
    private func fetchImage() {
-        let imageURL = URL(string: (pokemon2?.sprites?.other?.officialArtwork?.frontDefault)!)
+        let imageURL = URL(string: (pokemon1?.sprites?.other?.officialArtwork?.frontDefault)!)
         var image: UIImage?
         if let url = imageURL {
             //All network operations has to run on different thread(not on main thread).
@@ -32,9 +32,9 @@ class VsViewController: UIViewController {
                 //All UI operations has to run on main thread.
                 DispatchQueue.main.async {
                     if imageData != nil {
-                        image = UIImage(data: imageData as! Data)
-                        self.pokemonImage2.image = image
-                        self.pokemonImage2.sizeToFit()
+                        image = UIImage(data: imageData! as Data)
+                        self.pokemonImage1.image = image
+                        self.pokemonImage1.sizeToFit()
                         //self.pokemonImage1.image = self.image1
                         //self.pokemonImage1.sizeToFit()
                     } else {
@@ -43,12 +43,33 @@ class VsViewController: UIViewController {
                 }
             }
         }
+       let imageURL2 = URL(string: (pokemon2?.sprites?.other?.officialArtwork?.frontDefault)!)
+       var image2: UIImage?
+       if let url = imageURL2 {
+           //All network operations has to run on different thread(not on main thread).
+           DispatchQueue.global(qos: .userInitiated).async {
+               let imageData = NSData(contentsOf: url)
+               //All UI operations has to run on main thread.
+               DispatchQueue.main.async {
+                   if imageData != nil {
+                       image2 = UIImage(data: imageData! as Data)
+                       self.pokemonImage2.image = image2
+                       self.pokemonImage2.sizeToFit()
+                       //self.pokemonImage1.image = self.image1
+                       //self.pokemonImage1.sizeToFit()
+                   } else {
+                       image2 = nil
+                   }
+               }
+           }
+       }
     }
     
     override func viewDidLoad() {
         self.title = "\(pokemon1!.name!.firstCapitalized) vs \(pokemon2name!.firstCapitalized)"
         self.pokemonImage1.image = image1
         super.viewDidLoad()
+        // print(image1)
         Task {
             do {
                 let pokemonResult = try await networking.fetchPokemon(name: pokemon2name!)

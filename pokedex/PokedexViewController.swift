@@ -57,8 +57,8 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("section: \(indexPath.section)")
-        print("row: \(indexPath.row)")
+        // print("section: \(indexPath.section)")
+        // print("row: \(indexPath.row)")
         performSegue(withIdentifier: "ToPokemonSegue", sender: indexPath)
     }
     

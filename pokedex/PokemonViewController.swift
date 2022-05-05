@@ -73,25 +73,25 @@ class PokemonViewController: UIViewController {
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        print("hey there, we're in the correct view controller!")
-        print("pokemon name: \(pokemonName)")
+        // print("hey there, we're in the correct view controller!")
+        // print("pokemon name: \(pokemonName)")
         nameLabel.text = pokemonName?.firstCapitalized
         Task {
             do {
                 activityIndicator.startAnimating()
-                print("calling pokemonResult...")
+                // print("calling pokemonResult...")
                 let pokemonResult = try await networking.fetchPokemon(name: pokemonName!)
                 self.activityIndicator.stopAnimating()
                 // remove blur subview
                 self.view.viewWithTag(100)?.removeFromSuperview()
                 // print(type(of: pokedexEntries.results))
-                print("printing the result after fetch...")
+                /*print("printing the result after fetch...")
                 print(pokemonResult)
-                print("hi")
+                print("hi")*/
                 await MainActor.run {
                     pokemon = pokemonResult
-                    print("hello")
-                    print(pokemon)
+                    // print("hello")
+                    // print(pokemon)
                     fetchImage()
                     // image = fetchImage(pokemon: pokemon)
                     entryNumLabel.text = "#\(pokemon!.order!)"
@@ -121,7 +121,7 @@ class PokemonViewController: UIViewController {
     }
     
     @IBAction func onClick(_ sender: UIButton) {
-        print("button clicked")
+        // print("button clicked")
         performSegue(withIdentifier: "ToListSegue", sender: sender)
     }
     
@@ -130,7 +130,7 @@ class PokemonViewController: UIViewController {
             return
         }
         listViewController.pokemon1 = pokemon
-        print(pokedexEntries)
+        // print(pokedexEntries)
         listViewController.pokedexEntries = pokedexEntries
         listViewController.image1 = image
     }

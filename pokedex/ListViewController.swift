@@ -5,8 +5,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     let networking = Networking()
     var pokemon1: PokemonModel?
     var image1: UIImage?
-    var pokemon2: PokemonModel?
-    var image2: UIImage?
+    //var pokemon2: PokemonModel?
+    //var image2: UIImage?
     var pokedexEntries: [Result]?
     
     @IBOutlet weak var pokedexTable: UITableView!
@@ -15,13 +15,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         pokedexTable.delegate = self
         pokedexTable.dataSource = self
         pokedexTable.register(PokemonCell.self, forCellReuseIdentifier: "PokemonCell")
-        print("pokemon")
+        /*print("pokemon")
         print(pokemon1)
         print("pokedex entries...")
-        print(pokedexEntries)
+        print(pokedexEntries)*/
         var pokemonName = "\(pokemon1!.name ?? "MissingNo.")"
         self.title = "\(pokemonName.firstCapitalized) vs ..."
         super.viewDidLoad()
+        // print(image1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,8 +39,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("section: \(indexPath.section)")
-        print("row: \(indexPath.row)")
+        // print("section: \(indexPath.section)")
+        // print("row: \(indexPath.row)")
         performSegue(withIdentifier: "ToVsSegue", sender: indexPath)
         /*Task {
             do {
@@ -70,6 +71,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         // pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
         vsViewController.pokemon1 = pokemon1
         vsViewController.image1 = image1
+        // print(pokemon1)
+        print(image1)
         // let pokemon2Name = pokedexEntries![indexPath.row].name
         vsViewController.pokemon2name = pokedexEntries![indexPath.row].name
     }
