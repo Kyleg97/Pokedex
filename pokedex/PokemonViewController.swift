@@ -15,7 +15,6 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var entryNumLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     
-    
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     
@@ -28,10 +27,13 @@ class PokemonViewController: UIViewController {
     
     @IBOutlet weak var pokemonImage: UIImageView!
     
+    @IBOutlet weak var compareButton: UIButton!
+    
     let networking = Networking()
     
     var pokemonName: String?
     var pokemon: PokemonModel?
+    var pokedexEntries: [Result] = []
     // var image: String?
     
     private func fetchImage() {
@@ -114,4 +116,19 @@ class PokemonViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func onClick(_ sender: UIButton) {
+        print("button clicked")
+        performSegue(withIdentifier: "ToListSegue", sender: sender)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let listViewController = segue.destination as? ListViewController else {
+            return
+        }
+        listViewController.pokemon1 = pokemon
+        print(pokedexEntries)
+        listViewController.pokedexEntries = pokedexEntries
+    }
+    
 }
