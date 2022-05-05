@@ -23,6 +23,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         pokedexTable.delegate = self
         pokedexTable.dataSource = self
         pokedexTable.register(PokemonCell.self, forCellReuseIdentifier: "PokemonCell")
+        self.title = "Pokédex"
         super.viewDidLoad()
         
         Task {
@@ -69,6 +70,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
+        pokemonViewController.pokedexEntries = pokedexEntries
     }
 
 
