@@ -4,6 +4,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     let networking = Networking()
     var pokemon1: PokemonModel?
+    var image1: UIImage?
+    var pokemon2: PokemonModel?
+    var image2: UIImage?
     var pokedexEntries: [Result]?
     
     @IBOutlet weak var pokedexTable: UITableView!
@@ -37,17 +40,60 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("section: \(indexPath.section)")
         print("row: \(indexPath.row)")
+        performSegue(withIdentifier: "ToVsSegue", sender: indexPath)
+        /*Task {
+            do {
+                // activityIndicator.startAnimating()
+                print("calling pokemonResult...")
+                let pokemonResult = try await networking.fetchPokemon(name: pokemon2Name!)
+                // self.activityIndicator.stopAnimating()
+                await MainActor.run {
+                    pokemon2 = pokemonResult
+                    performSegue(withIdentifier: "ToVsSegue", sender: indexPath)
+                    // image2 = fetchImage(pokemon: pokemon2)
+                }
+                // now we need to map value of this ^ list into the table somehow, check muni app
+            }
+        }*/
         // performSegue(withIdentifier: "ToPokemonSegue", sender: indexPath)
+        // need to perform segue to whatever screen we come up with
     }
     
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let pokemonViewController = segue.destination as? PokemonViewController else {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vsViewController = segue.destination as? VsViewController else {
             return
         }
         guard let indexPath = sender as? IndexPath else {
             return
         }
-        pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
+        // var image2 = fetchImage(pokemon: pokemon2)
+        // pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
+        vsViewController.pokemon1 = pokemon1
+        vsViewController.image1 = image1
+        // let pokemon2Name = pokedexEntries![indexPath.row].name
+        vsViewController.pokemon2name = pokedexEntries![indexPath.row].name
+    }
+    
+    /*private func fetchImage(pokemon: PokemonModel?) -> UIImage {
+        let imageURL = URL(string: (pokemon?.sprites?.other?.officialArtwork?.frontDefault)!)
+        var image: UIImage?
+        if let url = imageURL {
+            //All network operations has to run on different thread(not on main thread).
+            DispatchQueue.global(qos: .userInitiated).async {
+                let imageData = NSData(contentsOf: url)
+                //All UI operations has to run on main thread.
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        image = UIImage(data: imageData! as Data)
+                        // self.pokemonImage.image = image
+                        // self.pokemonImage.sizeToFit()
+                    } else {
+                        image = nil
+                    }
+                }
+            }
+        }
+        return image!
     }*/
 
 

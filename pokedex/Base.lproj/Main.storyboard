@@ -43,7 +43,7 @@
         <!--Pokemon View Controller-->
         <scene sceneID="Wt6-yu-T6h">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="xqY-2B-oys" customClass="PokemonViewController" customModule="pokedex" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="xqY-2B-oys" customClass="PokemonViewController" customModule="pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6dD-zE-FVp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -69,6 +69,9 @@
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eVA-VA-CTR">
                                 <rect key="frame" x="87" y="214" width="240" height="328"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="1tf-Ar-Wg7"/>
+                                </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0eB-8C-JmG">
                                 <rect key="frame" x="63" y="605" width="41.5" height="41"/>
@@ -211,11 +214,52 @@
                     <navigationItem key="navigationItem" id="PrF-uM-Pk8"/>
                     <connections>
                         <outlet property="pokedexTable" destination="MP0-md-hrN" id="sGv-Zr-jWv"/>
+                        <segue destination="ZMw-6N-L9T" kind="show" identifier="ToVsSegue" id="xE7-yW-1W1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0K-60-PAS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1576.8115942028987" y="-92.410714285714278"/>
+        </scene>
+        <!--Vs View Controller-->
+        <scene sceneID="gRe-b6-8LL">
+            <objects>
+                <viewController id="ZMw-6N-L9T" customClass="VsViewController" customModule="pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Avo-vI-7b5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cWO-Up-UKW">
+                                <rect key="frame" x="87" y="232" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="NJJ-5V-2cu"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="509-do-Idn">
+                                <rect key="frame" x="87" y="444" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="h24-Fn-7GF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="509-do-Idn" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="87" id="2eu-pf-tKO"/>
+                            <constraint firstItem="cWO-Up-UKW" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="87" id="3N3-gQ-hea"/>
+                            <constraint firstItem="509-do-Idn" firstAttribute="top" secondItem="cWO-Up-UKW" secondAttribute="bottom" constant="84" id="5w5-b4-MAE"/>
+                            <constraint firstItem="cWO-Up-UKW" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" constant="144" id="8FB-Kq-gGp"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="bottom" secondItem="509-do-Idn" secondAttribute="bottom" constant="290" id="F1f-NP-vOt"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="cWO-Up-UKW" secondAttribute="trailing" constant="87" id="GxT-5M-rRW"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="509-do-Idn" secondAttribute="trailing" constant="87" id="ZaJ-ra-ioe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kbp-TG-RNz"/>
+                    <connections>
+                        <outlet property="pokemonImage1" destination="cWO-Up-UKW" id="CkH-3J-pB0"/>
+                        <outlet property="pokemonImage2" destination="509-do-Idn" id="44E-SU-eKd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U1P-YA-Ncf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2671" y="-92"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EUr-83-E7e">

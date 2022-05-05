@@ -34,7 +34,7 @@ class PokemonViewController: UIViewController {
     var pokemonName: String?
     var pokemon: PokemonModel?
     var pokedexEntries: [Result] = []
-    // var image: String?
+    var image: UIImage?
     
     private func fetchImage() {
         let imageURL = URL(string: (pokemon?.sprites?.other?.officialArtwork?.frontDefault)!)
@@ -59,6 +59,7 @@ class PokemonViewController: UIViewController {
     
     override func viewDidLoad() {
         // yeet
+        super.viewDidLoad()
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -68,6 +69,7 @@ class PokemonViewController: UIViewController {
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
+        activityIndicator.color = UIColor.red
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
@@ -91,6 +93,7 @@ class PokemonViewController: UIViewController {
                     print("hello")
                     print(pokemon)
                     fetchImage()
+                    // image = fetchImage(pokemon: pokemon)
                     entryNumLabel.text = "#\(pokemon!.order!)"
                     
                     heightLabel.text = "Height: \(decimetersToInches(height: pokemon!.height!)) inches"
@@ -129,6 +132,7 @@ class PokemonViewController: UIViewController {
         listViewController.pokemon1 = pokemon
         print(pokedexEntries)
         listViewController.pokedexEntries = pokedexEntries
+        listViewController.image1 = image
     }
     
 }
