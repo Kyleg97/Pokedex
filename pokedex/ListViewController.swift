@@ -72,7 +72,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         vsViewController.pokemon1 = pokemon1
         vsViewController.image1 = image1
         // print(pokemon1)
-        print(image1)
+        // print(image1)
         // let pokemon2Name = pokedexEntries![indexPath.row].name
         vsViewController.pokemon2name = pokedexEntries![indexPath.row].name
     }

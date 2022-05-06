@@ -229,29 +229,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cWO-Up-UKW">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cWO-Up-UKW">
                                 <rect key="frame" x="87" y="141" width="240" height="220"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="3RK-OQ-5n1"/>
-                                </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="509-do-Idn">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="509-do-Idn">
                                 <rect key="frame" x="87" y="537" width="240" height="207"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="BS8-Ta-H2X"/>
-                                    <constraint firstAttribute="height" constant="207" id="Chv-D4-c5H"/>
+                                    <constraint firstAttribute="height" constant="207" id="Lh6-Yd-gra"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="h24-Fn-7GF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="509-do-Idn" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="87" id="2eu-pf-tKO"/>
-                            <constraint firstItem="cWO-Up-UKW" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="87" id="3N3-gQ-hea"/>
-                            <constraint firstItem="h24-Fn-7GF" firstAttribute="bottom" secondItem="509-do-Idn" secondAttribute="bottom" constant="193" id="5k2-wz-hGY"/>
-                            <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="cWO-Up-UKW" secondAttribute="trailing" constant="87" id="GxT-5M-rRW"/>
-                            <constraint firstItem="cWO-Up-UKW" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" constant="144" id="ZZ9-f0-ICb"/>
-                            <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="509-do-Idn" secondAttribute="trailing" constant="87" id="ZaJ-ra-ioe"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="509-do-Idn" secondAttribute="trailing" constant="87" id="3xt-Pd-GWg"/>
+                            <constraint firstItem="509-do-Idn" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="87" id="60x-zc-Yan"/>
+                            <constraint firstItem="509-do-Idn" firstAttribute="top" secondItem="cWO-Up-UKW" secondAttribute="bottom" constant="176" id="94h-jY-GQK"/>
+                            <constraint firstItem="cWO-Up-UKW" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" constant="53" id="CCu-IH-w4I"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="bottom" secondItem="509-do-Idn" secondAttribute="bottom" constant="118" id="GdH-F9-2Hf"/>
+                            <constraint firstItem="cWO-Up-UKW" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="87" id="IFm-C5-ehG"/>
+                            <constraint firstItem="509-do-Idn" firstAttribute="top" secondItem="cWO-Up-UKW" secondAttribute="bottom" constant="176" id="Stt-Rj-MlE"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="cWO-Up-UKW" secondAttribute="trailing" constant="87" id="oYC-Hl-gSo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Kbp-TG-RNz"/>
