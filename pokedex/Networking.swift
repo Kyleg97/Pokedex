@@ -20,16 +20,16 @@ struct Networking {
 
     func fetchPokemon(name: String) async throws -> PokemonModel {
         let url = URL(string: "\(baseURL)/\(name)")!
-        // print(url)
+        //print(url)
         let (data,_) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         // print(data)
         /*do {
             let test = try decoder.decode(PokemonModel.self, from: data)
-            // print("success?")
-            // print(test)
+            print("success?")
+            print(test)
         } catch {
-            // print(error)
+            print(error)
         }*/
         return try decoder.decode(PokemonModel.self, from: data)
     }

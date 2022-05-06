@@ -109,7 +109,7 @@ class PokemonViewController: UIViewController {
                     let types = pokemon?.types!
                     for i in 0...types!.count-1 {
                         typeString += (types![i].type?.name?.firstCapitalized)!
-                        if (i == 0) {
+                        if (i == 0 && types!.count > 1) {
                             typeString += " / "
                         }
                     }

@@ -34,7 +34,7 @@ class VsViewController: UIViewController {
                     if imageData != nil {
                         image = UIImage(data: imageData! as Data)
                         self.pokemonImage1.image = image
-                        self.pokemonImage1.sizeToFit()
+                        // self.pokemonImage1.sizeToFit()
                         //self.pokemonImage1.image = self.image1
                         //self.pokemonImage1.sizeToFit()
                     } else {
@@ -54,7 +54,7 @@ class VsViewController: UIViewController {
                    if imageData != nil {
                        image2 = UIImage(data: imageData! as Data)
                        self.pokemonImage2.image = image2
-                       self.pokemonImage2.sizeToFit()
+                       // self.pokemonImage2.sizeToFit()
                        //self.pokemonImage1.image = self.image1
                        //self.pokemonImage1.sizeToFit()
                    } else {
