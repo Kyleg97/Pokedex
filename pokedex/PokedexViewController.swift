@@ -11,11 +11,15 @@ class PokemonCell: UITableViewCell {
     
 }
 
-class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     let networking = Networking()
     
     var pokedexEntries: [Result] = []
+    var filteredEntries: [Result] = []
+
+    var searching = false
+    var searchController : UISearchController!
     
     @IBOutlet weak var pokedexTable: UITableView!
     
@@ -23,43 +27,67 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         pokedexTable.delegate = self
         pokedexTable.dataSource = self
         pokedexTable.register(PokemonCell.self, forCellReuseIdentifier: "PokemonCell")
-        self.title = "Pokédex"
         super.viewDidLoad()
+        
+        self.searchController = UISearchController(searchResultsController:  nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.navigationItem.titleView = searchController.searchBar
+        self.definesPresentationContext = true
         
         Task {
             do {
                 let pokedexEntriesResult = try await networking.fetchPokedex()
-                // print(type(of: pokedexEntries.results))
                 await MainActor.run {
                     pokedexEntries = pokedexEntriesResult.results ?? []
                     pokedexTable.reloadData()
-                    if (pokedexEntries.count == 0) {
-                        navigationItem.title = "Network error"
-                    }
                 }
-                // now we need to map value of this ^ list into the table somehow, check muni app
             }
         }
-        // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokedexEntries.count
+        if (searching) {
+            return filteredEntries.count
+        } else {
+            return pokedexEntries.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell") as? PokemonCell else {
             return UITableViewCell()
         }
-        let name = pokedexEntries[indexPath.row].name?.firstCapitalized
-        cell.textLabel?.text = name
+        if (searching) {
+            let name = filteredEntries[indexPath.row].name?.firstCapitalized
+            cell.textLabel?.text = name
+        } else {
+            let name = pokedexEntries[indexPath.row].name?.firstCapitalized
+            cell.textLabel?.text = name
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // print("section: \(indexPath.section)")
-        // print("row: \(indexPath.row)")
         performSegue(withIdentifier: "ToPokemonSegue", sender: indexPath)
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredEntries = pokedexEntries.filter { $0.name!.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        searching = true
+        pokedexTable.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
+        pokedexTable.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -69,10 +97,12 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard let indexPath = sender as? IndexPath else {
             return
         }
-        pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
-        pokemonViewController.pokedexEntries = pokedexEntries
+        if (searching) {
+            pokemonViewController.pokemonName = filteredEntries[indexPath.row].name!
+            pokemonViewController.pokedexEntries = pokedexEntries
+        } else {
+            pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
+            pokemonViewController.pokedexEntries = pokedexEntries
+        }
     }
-
-
 }
-

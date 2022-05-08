@@ -22,8 +22,6 @@ func decimetersToInches(height: Int) -> Int {
 
 func hasAdvantage(type1: [TypeElement], type2: [TypeElement]) -> Double {
     var multiplier = 1.0
-    // var length = (type1.count > type2.count) ? type1.count : type2.count
-    // type1[0].type?.name
     for i in 0...type1.count-1 {
         for j in 0...type2.count-1 {
             let t1 = type1[i].type!.name!

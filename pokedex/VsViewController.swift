@@ -160,10 +160,11 @@ class VsViewController: UIViewController {
                     speedLabel2.textColor = (mon1.spd > mon2.spd) ? UIColor.red : UIColor.green
                     
                     let advantage = hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!)
+                    print("Advantage: \(advantage)")
                     if (advantage > 1.0) {
-                        advantageLabel.text = "\(pokemon1!.name!.firstCapitalized) has the advantage over \(pokemon2!.name!.firstCapitalized)"
+                        advantageLabel.text = "\(pokemon1!.name!.firstCapitalized) has the type advantage over \(pokemon2!.name!.firstCapitalized)"
                     } else if (advantage < 1.0) {
-                        advantageLabel.text = "\(pokemon2!.name!.firstCapitalized) has the advantage over \(pokemon1!.name!.firstCapitalized)"
+                        advantageLabel.text = "\(pokemon2!.name!.firstCapitalized) has the type advantage over \(pokemon1!.name!.firstCapitalized)"
                     } else {
                         advantageLabel.text = "No one has a type advantage"
                     }
