@@ -42,6 +42,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let pokedexEntriesResult = try await networking.fetchPokedex()
                 await MainActor.run {
                     pokedexEntries = pokedexEntriesResult.results ?? []
+                    print(pokedexEntriesResult)
                     pokedexTable.reloadData()
                 }
             }
