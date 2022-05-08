@@ -167,7 +167,7 @@ class VsViewController: UIViewController {
                     } else if (advantage1 < advantage2) {
                         advantageLabel.text = "\(pokemon2!.name!.firstCapitalized) has the type advantage over \(pokemon1!.name!.firstCapitalized)"
                     } else {
-                        advantageLabel.text = "No one has a type advanta#imageLiteral(resourceName: "simulator_screenshot_4B4020FC-40E4-4E2F-A2D4-C2FDB679B3A5.png")ge"
+                        advantageLabel.text = "No one has a type advantage"
                     }
                 }
             }
