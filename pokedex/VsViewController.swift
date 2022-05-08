@@ -21,6 +21,9 @@ class VsViewController: UIViewController {
     @IBOutlet weak var pokemonImage1: UIImageView!
     @IBOutlet weak var pokemonImage2: UIImageView!
     
+    @IBOutlet weak var type1: UILabel!
+    @IBOutlet weak var type2: UILabel!
+    
     @IBOutlet weak var hpLabel1: UILabel!
     @IBOutlet weak var atkLabel1: UILabel!
     @IBOutlet weak var sAtkLabel1: UILabel!
@@ -99,8 +102,8 @@ class VsViewController: UIViewController {
                         def: pokemon1!.stats![2].baseStat!,
                         sDef: pokemon1!.stats![4].baseStat!,
                         spd: pokemon1!.stats![5].baseStat!,
-                        type1: pokemon1!.types![0].type!.name!,
-                        type2: pokemon1!.types![1].type!.name
+                        type1: pokemon1!.types![0].type!.name!.firstCapitalized,
+                        type2: (pokemon1!.types!.count > 1) ? pokemon1!.types![1].type!.name?.firstCapitalized : nil
                     )
                     
                     let mon2 = PokemonStats(
@@ -110,10 +113,21 @@ class VsViewController: UIViewController {
                         def: pokemon2!.stats![2].baseStat!,
                         sDef: pokemon2!.stats![4].baseStat!,
                         spd: pokemon2!.stats![5].baseStat!,
-                        type1: pokemon2!.types![0].type!.name!,
-                        type2: (pokemon2!.types!.count > 1) ? pokemon2!.types![1].type!.name : nil
+                        type1: pokemon2!.types![0].type!.name!.firstCapitalized,
+                        type2: (pokemon2!.types!.count > 1) ? pokemon2!.types![1].type!.name?.firstCapitalized : nil
                     )
                     
+                    if (mon1.type2 != nil) {
+                        type1.text = "\(mon1.type1) / \n\(mon1.type2 ?? "")"
+                    } else {
+                        type1.text = "\(mon1.type1)"
+                    }
+                    
+                    if (mon2.type2 != nil) {
+                        type2.text = "\(mon2.type1) / \n\(mon2.type2 ?? "")"
+                    } else {
+                        type2.text = "\(mon2.type1)"
+                    }
                     
                     hpLabel1.text = "\(mon1.hp)"
                     atkLabel1.text = "\(mon1.atk)"
@@ -121,7 +135,6 @@ class VsViewController: UIViewController {
                     defLabel1.text = "\(mon1.def)"
                     sDefLabel1.text = "\(mon1.sDef)"
                     speedLabel1.text = "\(mon1.spd)"
-                    
                     
                     hpLabel1.textColor = (mon1.hp < mon2.hp) ? UIColor.red : UIColor.green
                     atkLabel1.textColor = (mon1.atk < mon2.atk) ? UIColor.red : UIColor.green
