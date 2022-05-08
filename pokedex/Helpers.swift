@@ -28,9 +28,11 @@ func hasAdvantage(type1: [TypeElement], type2: [TypeElement]) -> Double {
         for j in 0...type2.count-1 {
             let t1 = type1[i].type!.name!
             let t2 = type2[j].type!.name!
-            multiplier *= typeMatchups[t1]![t2]!
-            if (multiplier > 2.0) {
-                break
+            let mult = typeMatchups[t1]![t2]!
+            if (mult == 0 && type1.count == 2) {
+                multiplier *= 1
+            } else {
+                multiplier *= mult
             }
         }
     }
