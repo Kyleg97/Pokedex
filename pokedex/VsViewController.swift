@@ -156,6 +156,9 @@ class VsViewController: UIViewController {
                     defLabel2.textColor = (mon1.def > mon2.def) ? UIColor.red : UIColor.green
                     sDefLabel2.textColor = (mon1.sDef > mon2.sDef) ? UIColor.red : UIColor.green
                     speedLabel2.textColor = (mon1.spd > mon2.spd) ? UIColor.red : UIColor.green
+                    
+                    print("Printing the multiplier of pokemon1 to pokemon2")
+                    print(hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!))
                 }
             }
         }

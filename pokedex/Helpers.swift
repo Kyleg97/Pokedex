@@ -20,27 +20,19 @@ func decimetersToInches(height: Int) -> Int {
     return height * Int(3.937)
 }
 
-/*func fetchImage(pokemon: PokemonModel?) -> UIImage {
-    let imageURL = URL(string: (pokemon?.sprites?.other?.officialArtwork?.frontDefault)!)
-    print("IMAGE URL")
-    print(imageURL)
-    var image: UIImage?
-    if let url = imageURL {
-        //All network operations has to run on different thread(not on main thread).
-        DispatchQueue.global(qos: .userInitiated).async {
-            let imageData = NSData(contentsOf: url)
-            //All UI operations has to run on main thread.
-            DispatchQueue.main.async {
-                if imageData != nil {
-                    image = UIImage(data: imageData! as Data)
-                    // image.sizeToFit()
-                    // self.pokemonImage.image = image
-                    // self.pokemonImage.sizeToFit()
-                } else {
-                    image = nil
-                }
+func hasAdvantage(type1: [TypeElement], type2: [TypeElement]) -> Double {
+    var multiplier = 1.0
+    // var length = (type1.count > type2.count) ? type1.count : type2.count
+    // type1[0].type?.name
+    for i in 0...type1.count-1 {
+        for j in 0...type2.count-1 {
+            let t1 = type1[i].type!.name!
+            let t2 = type2[j].type!.name!
+            multiplier *= typeMatchups[t1]![t2]!
+            if (multiplier > 2.0) {
+                break
             }
         }
     }
-    return image!
-}*/
+    return multiplier
+}
