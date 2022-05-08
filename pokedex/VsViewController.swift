@@ -159,14 +159,15 @@ class VsViewController: UIViewController {
                     sDefLabel2.textColor = (mon1.sDef > mon2.sDef) ? UIColor.red : UIColor.green
                     speedLabel2.textColor = (mon1.spd > mon2.spd) ? UIColor.red : UIColor.green
                     
-                    let advantage = hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!)
-                    print("Advantage: \(advantage)")
-                    if (advantage > 1.0) {
+                    let advantage1 = hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!)
+                    let advantage2 = hasAdvantage(type1: (pokemon2?.types)!, type2: (pokemon1?.types)!)
+                    // print("Advantage: \(advantage1)")
+                    if (advantage1 > advantage2) {
                         advantageLabel.text = "\(pokemon1!.name!.firstCapitalized) has the type advantage over \(pokemon2!.name!.firstCapitalized)"
-                    } else if (advantage < 1.0) {
+                    } else if (advantage1 < advantage2) {
                         advantageLabel.text = "\(pokemon2!.name!.firstCapitalized) has the type advantage over \(pokemon1!.name!.firstCapitalized)"
                     } else {
-                        advantageLabel.text = "No one has a type advantage"
+                        advantageLabel.text = "No one has a type advanta#imageLiteral(resourceName: "simulator_screenshot_4B4020FC-40E4-4E2F-A2D4-C2FDB679B3A5.png")ge"
                     }
                 }
             }

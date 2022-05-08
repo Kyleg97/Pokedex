@@ -94,7 +94,7 @@ class PokemonViewController: UIViewController {
                     // print(pokemon)
                     fetchImage()
                     // image = fetchImage(pokemon: pokemon)
-                    entryNumLabel.text = "#\(pokemon!.order!)"
+                    entryNumLabel.text = "#\(pokemon!.id!)"
                     
                     heightLabel.text = "Height: \(decimetersToInches(height: pokemon!.height!)) inches"
                     weightLabel.text = "Weight: \(hectogramsToLbs(weight: pokemon!.weight!)) lbs"
