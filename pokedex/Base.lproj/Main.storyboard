@@ -464,15 +464,21 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-Em-ec4">
+                                <rect key="frame" x="317" y="62.5" width="54" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Th5-cJ-kez">
                                 <rect key="frame" x="520" y="61" width="54" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-Em-ec4">
-                                <rect key="frame" x="317" y="62.5" width="54" height="31.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="CrN-6l-qEu">
+                                <rect key="frame" x="349" y="140" width="198" height="211"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -483,13 +489,17 @@
                             <constraint firstItem="Th5-cJ-kez" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" constant="17" id="2ye-Oa-L8l"/>
                             <constraint firstItem="She-Em-ec4" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" constant="18.5" id="40e-ll-Tzc"/>
                             <constraint firstItem="cWO-Up-UKW" firstAttribute="leading" secondItem="h24-Fn-7GF" secondAttribute="leading" constant="40" id="74l-ws-nC3"/>
+                            <constraint firstItem="CrN-6l-qEu" firstAttribute="leading" secondItem="cWO-Up-UKW" secondAttribute="trailing" constant="55" id="8sp-xW-LAJ"/>
+                            <constraint firstItem="509-do-Idn" firstAttribute="leading" secondItem="CrN-6l-qEu" secondAttribute="trailing" constant="56" id="Ehu-4r-NmE"/>
                             <constraint firstItem="She-Em-ec4" firstAttribute="leading" secondItem="cWO-Up-UKW" secondAttribute="trailing" constant="23" id="LlL-lh-Hwx"/>
                             <constraint firstItem="zSO-o3-5aj" firstAttribute="top" secondItem="509-do-Idn" secondAttribute="bottom" constant="17" id="QPJ-n2-7kP"/>
+                            <constraint firstItem="CrN-6l-qEu" firstAttribute="top" secondItem="She-Em-ec4" secondAttribute="bottom" constant="46" id="d3c-Cs-5AE"/>
                             <constraint firstItem="cWO-Up-UKW" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" constant="2" id="fJR-JT-N3R"/>
                             <constraint firstItem="509-do-Idn" firstAttribute="centerX" secondItem="zSO-o3-5aj" secondAttribute="centerX" id="fRv-5g-xog"/>
                             <constraint firstItem="509-do-Idn" firstAttribute="top" secondItem="h24-Fn-7GF" secondAttribute="top" id="gT0-IF-nE1"/>
                             <constraint firstItem="eVw-kH-bah" firstAttribute="top" secondItem="cWO-Up-UKW" secondAttribute="bottom" constant="22" id="gwO-SV-YPQ"/>
                             <constraint firstItem="cWO-Up-UKW" firstAttribute="bottom" secondItem="509-do-Idn" secondAttribute="bottom" id="l1A-ZV-mtK"/>
+                            <constraint firstItem="h24-Fn-7GF" firstAttribute="bottom" secondItem="CrN-6l-qEu" secondAttribute="bottom" constant="42" id="oLs-8e-X9G"/>
                             <constraint firstItem="h24-Fn-7GF" firstAttribute="trailing" secondItem="509-do-Idn" secondAttribute="trailing" constant="39" id="srU-ev-YM3"/>
                             <constraint firstItem="cWO-Up-UKW" firstAttribute="centerX" secondItem="eVw-kH-bah" secondAttribute="centerX" id="wSb-ji-c5X"/>
                             <constraint firstItem="509-do-Idn" firstAttribute="leading" secondItem="Th5-cJ-kez" secondAttribute="trailing" constant="29" id="xxo-Gc-k16"/>
@@ -497,6 +507,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Kbp-TG-RNz"/>
                     <connections>
+                        <outlet property="advantageLabel" destination="CrN-6l-qEu" id="ZZN-PI-eeK"/>
                         <outlet property="atkLabel1" destination="eA7-Q2-Sxh" id="9fa-gj-Xjg"/>
                         <outlet property="atkLabel2" destination="eKg-Ik-wNc" id="ear-R2-9Om"/>
                         <outlet property="defLabel1" destination="NFV-bo-L33" id="AYC-4j-7VJ"/>

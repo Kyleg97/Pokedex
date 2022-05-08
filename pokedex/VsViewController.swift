@@ -38,6 +38,8 @@ class VsViewController: UIViewController {
     @IBOutlet weak var sDefLabel2: UILabel!
     @IBOutlet weak var speedLabel2: UILabel!
     
+    @IBOutlet weak var advantageLabel: UILabel!
+    
    private func fetchImage() {
         let imageURL = URL(string: (pokemon1?.sprites?.other?.officialArtwork?.frontDefault)!)
         var image: UIImage?
@@ -157,8 +159,14 @@ class VsViewController: UIViewController {
                     sDefLabel2.textColor = (mon1.sDef > mon2.sDef) ? UIColor.red : UIColor.green
                     speedLabel2.textColor = (mon1.spd > mon2.spd) ? UIColor.red : UIColor.green
                     
-                    print("Printing the multiplier of pokemon1 to pokemon2")
-                    print(hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!))
+                    let advantage = hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!)
+                    if (advantage > 1.0) {
+                        advantageLabel.text = "\(pokemon1!.name!.firstCapitalized) has the advantage over \(pokemon2!.name!.firstCapitalized)"
+                    } else if (advantage < 1.0) {
+                        advantageLabel.text = "\(pokemon2!.name!.firstCapitalized) has the advantage over \(pokemon1!.name!.firstCapitalized)"
+                    } else {
+                        advantageLabel.text = "No one has a type advantage"
+                    }
                 }
             }
         }
