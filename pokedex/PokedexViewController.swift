@@ -128,8 +128,11 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let value = UIInterfaceOrientation.portrait.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
+        AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+   }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.lockOrientation(.all)
    }
     
     private func configureSearchController() {

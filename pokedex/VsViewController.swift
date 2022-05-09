@@ -166,9 +166,7 @@ class VsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let value = UIInterfaceOrientation.landscapeLeft.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
-        AppUtility.lockOrientation(.landscape)
+        AppUtility.lockOrientation(.landscape, andRotateTo: .landscapeLeft)
    }
     
     override func viewWillDisappear(_ animated: Bool) {
