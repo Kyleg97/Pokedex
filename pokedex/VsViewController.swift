@@ -44,17 +44,14 @@ class VsViewController: UIViewController {
         let imageURL = URL(string: (pokemon1?.sprites?.other?.officialArtwork?.frontDefault)!)
         var image: UIImage?
         if let url = imageURL {
-            //All network operations has to run on different thread(not on main thread).
+            // network operations have to run on different thread (not on the main thread)
             DispatchQueue.global(qos: .userInitiated).async {
                 let imageData = NSData(contentsOf: url)
-                //All UI operations has to run on main thread.
+                // UI changes have to run on main thread.
                 DispatchQueue.main.async {
                     if imageData != nil {
                         image = UIImage(data: imageData! as Data)
                         self.pokemonImage1.image = image
-                        // self.pokemonImage1.sizeToFit()
-                        //self.pokemonImage1.image = self.image1
-                        //self.pokemonImage1.sizeToFit()
                     } else {
                         image = nil
                     }
@@ -64,17 +61,12 @@ class VsViewController: UIViewController {
        let imageURL2 = URL(string: (pokemon2?.sprites?.other?.officialArtwork?.frontDefault)!)
        var image2: UIImage?
        if let url = imageURL2 {
-           //All network operations has to run on different thread(not on main thread).
            DispatchQueue.global(qos: .userInitiated).async {
                let imageData = NSData(contentsOf: url)
-               //All UI operations has to run on main thread.
                DispatchQueue.main.async {
                    if imageData != nil {
                        image2 = UIImage(data: imageData! as Data)
                        self.pokemonImage2.image = image2
-                       // self.pokemonImage2.sizeToFit()
-                       //self.pokemonImage1.image = self.image1
-                       //self.pokemonImage1.sizeToFit()
                    } else {
                        image2 = nil
                    }

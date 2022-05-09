@@ -122,17 +122,26 @@ class PokemonViewController: UIViewController {
     
     @IBAction func onClick(_ sender: UIButton) {
         // print("button clicked")
-        performSegue(withIdentifier: "ToListSegue", sender: sender)
+        // performSegue(withIdentifier: "ToListSegue", sender: sender)
+        performSegue(withIdentifier: "ReturnPokedexSegue", sender: sender)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let listViewController = segue.destination as? ListViewController else {
+        /*guard let listViewController = segue.destination as? ListViewController else {
             return
         }
         listViewController.pokemon1 = pokemon
         // print(pokedexEntries)
         listViewController.pokedexEntries = pokedexEntries
-        listViewController.image1 = image
+        listViewController.image1 = image*/
+        guard let pokedexViewController = segue.destination as? PokedexViewController else {
+            return
+        }
+        pokedexViewController.pokemon1 = pokemon
+        // print(pokedexEntries)
+        pokedexViewController.pokedexEntries = pokedexEntries
+        pokedexViewController.image1 = image
+        pokedexViewController.compare = true
     }
     
 }
