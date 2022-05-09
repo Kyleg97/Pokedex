@@ -58,8 +58,10 @@ class PokemonViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        // yeet
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
         super.viewDidLoad()
+        
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -143,5 +145,4 @@ class PokemonViewController: UIViewController {
         pokedexViewController.image1 = image
         pokedexViewController.compare = true
     }
-    
 }

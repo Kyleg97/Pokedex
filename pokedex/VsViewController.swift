@@ -76,8 +76,6 @@ class VsViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        let value = UIInterfaceOrientation.landscapeLeft.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
         self.title = "\(pokemon1!.name!.firstCapitalized) vs \(pokemon2name!.firstCapitalized)"
         self.pokemonImage1.image = image1
         super.viewDidLoad()
@@ -164,6 +162,17 @@ class VsViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+        AppUtility.lockOrientation(.landscape)
+   }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.lockOrientation(.all)
     }
 }
 

@@ -20,6 +20,7 @@
 		B596E057281E102D002BD6FF /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B596E056281E102D002BD6FF /* Helpers.swift */; };
 		B596E05B281E1447002BD6FF /* PokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B596E05A281E1447002BD6FF /* PokemonViewController.swift */; };
 		B5AF6A3C2824837F007B7D23 /* VsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF6A3B2824837F007B7D23 /* VsViewController.swift */; };
+		B5B061B92829DBD1008EA096 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B061B82829DBD1008EA096 /* AppUtility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B596E056281E102D002BD6FF /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B596E05A281E1447002BD6FF /* PokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewController.swift; sourceTree = "<group>"; };
 		B5AF6A3B2824837F007B7D23 /* VsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VsViewController.swift; sourceTree = "<group>"; };
+		B5B061B82829DBD1008EA096 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				B541B095281CFF6200FBB250 /* PokedexModel.swift */,
 				B541B083281CFEFB00FBB250 /* Main.storyboard */,
 				B5AF6A3B2824837F007B7D23 /* VsViewController.swift */,
+				B5B061B82829DBD1008EA096 /* AppUtility.swift */,
 				B56BD86D28274BCC00AD4852 /* TypeMatchups.swift */,
 				B596E05A281E1447002BD6FF /* PokemonViewController.swift */,
 				B541B086281CFEFC00FBB250 /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 				B541B082281CFEFB00FBB250 /* PokedexViewController.swift in Sources */,
 				B596E057281E102D002BD6FF /* Helpers.swift in Sources */,
 				B541B098281D002600FBB250 /* PokemonModel.swift in Sources */,
+				B5B061B92829DBD1008EA096 /* AppUtility.swift in Sources */,
 				B541B07E281CFEFB00FBB250 /* AppDelegate.swift in Sources */,
 				B541B080281CFEFB00FBB250 /* SceneDelegate.swift in Sources */,
 				B541B096281CFF6200FBB250 /* PokedexModel.swift in Sources */,

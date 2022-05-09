@@ -12,7 +12,6 @@ class PokemonCell: UITableViewCell {
 }
 
 class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchBarDelegate {
-    
     // only used if comparing
     var compare = false
     var pokemon1: PokemonModel?
@@ -20,7 +19,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let networking = Networking()
     
-    var pokedexEntries: [Result] = []
+    var pokedexEntries: [Result]? = []
     var filteredEntries: [Result] = []
 
     var searching = false
@@ -36,21 +35,17 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         print("IN POKEDEX VIEW CONTROLLER")
         
-        self.searchController = UISearchController(searchResultsController:  nil)
-        // self.searchController.searchResultsUpdater = self
-        self.searchController.delegate = self
-        self.searchController.searchBar.delegate = self
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        self.navigationItem.titleView = searchController.searchBar
-        self.definesPresentationContext = true
+        configureSearchController()
         
-        Task {
-            do {
-                let pokedexEntriesResult = try await networking.fetchPokedex()
-                await MainActor.run {
-                    pokedexEntries = pokedexEntriesResult.results ?? []
-                    // print(pokedexEntriesResult)
-                    pokedexTable.reloadData()
+        if (compare == false) {
+            Task {
+                do {
+                    let pokedexEntriesResult = try await networking.fetchPokedex()
+                    await MainActor.run {
+                        pokedexEntries = pokedexEntriesResult.results ?? []
+                        // print(pokedexEntriesResult)
+                        pokedexTable.reloadData()
+                    }
                 }
             }
         }
@@ -60,7 +55,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (searching) {
             return filteredEntries.count
         } else {
-            return pokedexEntries.count
+            return pokedexEntries!.count
         }
     }
     
@@ -72,7 +67,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
             let name = filteredEntries[indexPath.row].name?.firstCapitalized
             cell.textLabel?.text = name
         } else {
-            let name = pokedexEntries[indexPath.row].name?.firstCapitalized
+            let name = pokedexEntries![indexPath.row].name?.firstCapitalized
             cell.textLabel?.text = name
         }
         return cell
@@ -87,7 +82,8 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredEntries = pokedexEntries.filter { $0.name!.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        self.navigationItem.backBarButtonItem = nil
+        filteredEntries = pokedexEntries!.filter { $0.name!.lowercased().prefix(searchText.count) == searchText.lowercased() }
         searching = true
         pokedexTable.reloadData()
     }
@@ -111,7 +107,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
             if (searching) {
                 vsViewController.pokemon2name = filteredEntries[indexPath.row].name
             } else {
-                vsViewController.pokemon2name = pokedexEntries[indexPath.row].name
+                vsViewController.pokemon2name = pokedexEntries![indexPath.row].name
             }
         } else {
             guard let pokemonViewController = segue.destination as? PokemonViewController else {
@@ -122,11 +118,26 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             if (searching) {
                 pokemonViewController.pokemonName = filteredEntries[indexPath.row].name!
-                pokemonViewController.pokedexEntries = pokedexEntries
+                pokemonViewController.pokedexEntries = pokedexEntries!
             } else {
-                pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
-                pokemonViewController.pokedexEntries = pokedexEntries
+                pokemonViewController.pokemonName = pokedexEntries![indexPath.row].name!
+                pokemonViewController.pokedexEntries = pokedexEntries!
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+   }
+    
+    private func configureSearchController() {
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.navigationItem.titleView = searchController.searchBar
+        self.definesPresentationContext = true
     }
 }
