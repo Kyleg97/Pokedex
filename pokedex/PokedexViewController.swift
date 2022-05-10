@@ -11,11 +11,15 @@ class PokemonCell: UITableViewCell {
     
 }
 
-class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchBarDelegate {
+    // only used if comparing
+    var compare = false
+    var pokemon1: PokemonModel?
+    var image1: UIImage?
     
     let networking = Networking()
     
-    var pokedexEntries: [Result] = []
+    var pokedexEntries: [Result]? = []
     var filteredEntries: [Result] = []
 
     var searching = false
@@ -29,21 +33,19 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         pokedexTable.register(PokemonCell.self, forCellReuseIdentifier: "PokemonCell")
         super.viewDidLoad()
         
-        self.searchController = UISearchController(searchResultsController:  nil)
-        self.searchController.searchResultsUpdater = self
-        self.searchController.delegate = self
-        self.searchController.searchBar.delegate = self
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        self.navigationItem.titleView = searchController.searchBar
-        self.definesPresentationContext = true
+        print("IN POKEDEX VIEW CONTROLLER")
         
-        Task {
-            do {
-                let pokedexEntriesResult = try await networking.fetchPokedex()
-                await MainActor.run {
-                    pokedexEntries = pokedexEntriesResult.results ?? []
-                    // print(pokedexEntriesResult)
-                    pokedexTable.reloadData()
+        configureSearchController()
+        
+        if (compare == false) {
+            Task {
+                do {
+                    let pokedexEntriesResult = try await networking.fetchPokedex()
+                    await MainActor.run {
+                        pokedexEntries = pokedexEntriesResult.results ?? []
+                        // print(pokedexEntriesResult)
+                        pokedexTable.reloadData()
+                    }
                 }
             }
         }
@@ -53,7 +55,7 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (searching) {
             return filteredEntries.count
         } else {
-            return pokedexEntries.count
+            return pokedexEntries!.count
         }
     }
     
@@ -65,22 +67,23 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
             let name = filteredEntries[indexPath.row].name?.firstCapitalized
             cell.textLabel?.text = name
         } else {
-            let name = pokedexEntries[indexPath.row].name?.firstCapitalized
+            let name = pokedexEntries![indexPath.row].name?.firstCapitalized
             cell.textLabel?.text = name
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ToPokemonSegue", sender: indexPath)
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
+        if (compare) {
+            performSegue(withIdentifier: "ToVsSegue2", sender: indexPath)
+        } else {
+            performSegue(withIdentifier: "ToPokemonSegue", sender: indexPath)
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredEntries = pokedexEntries.filter { $0.name!.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        self.navigationItem.backBarButtonItem = nil
+        filteredEntries = pokedexEntries!.filter { $0.name!.lowercased().prefix(searchText.count) == searchText.lowercased() }
         searching = true
         pokedexTable.reloadData()
     }
@@ -92,18 +95,52 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let pokemonViewController = segue.destination as? PokemonViewController else {
-            return
-        }
-        guard let indexPath = sender as? IndexPath else {
-            return
-        }
-        if (searching) {
-            pokemonViewController.pokemonName = filteredEntries[indexPath.row].name!
-            pokemonViewController.pokedexEntries = pokedexEntries
+        if (compare) {
+            guard let vsViewController = segue.destination as? VsViewController else {
+                return
+            }
+            guard let indexPath = sender as? IndexPath else {
+                return
+            }
+            vsViewController.pokemon1 = pokemon1
+            vsViewController.image1 = image1
+            if (searching) {
+                vsViewController.pokemon2name = filteredEntries[indexPath.row].name
+            } else {
+                vsViewController.pokemon2name = pokedexEntries![indexPath.row].name
+            }
         } else {
-            pokemonViewController.pokemonName = pokedexEntries[indexPath.row].name!
-            pokemonViewController.pokedexEntries = pokedexEntries
+            guard let pokemonViewController = segue.destination as? PokemonViewController else {
+                return
+            }
+            guard let indexPath = sender as? IndexPath else {
+                return
+            }
+            if (searching) {
+                pokemonViewController.pokemonName = filteredEntries[indexPath.row].name!
+                pokemonViewController.pokedexEntries = pokedexEntries!
+            } else {
+                pokemonViewController.pokemonName = pokedexEntries![indexPath.row].name!
+                pokemonViewController.pokedexEntries = pokedexEntries!
+            }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+   }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppUtility.lockOrientation(.all)
+   }
+    
+    private func configureSearchController() {
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.navigationItem.titleView = searchController.searchBar
+        self.definesPresentationContext = true
     }
 }
