@@ -61,7 +61,6 @@ class PokemonViewController: UIViewController {
         let value = UIInterfaceOrientation.portrait.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
         super.viewDidLoad()
-        
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
