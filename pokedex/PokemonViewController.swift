@@ -82,6 +82,8 @@ class PokemonViewController: UIViewController {
                 activityIndicator.startAnimating()
                 // print("calling pokemonResult...")
                 let pokemonResult = try await networking.fetchPokemon(name: pokemonName!)
+                let flavorResult = try await networking.fetchFlavor(number: pokemonResult.id!)
+                print(flavorResult.flavorTextEntries![0].flavorText!)
                 self.activityIndicator.stopAnimating()
                 // remove blur subview
                 self.view.viewWithTag(100)?.removeFromSuperview()

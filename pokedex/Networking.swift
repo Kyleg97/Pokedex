@@ -24,4 +24,11 @@ struct Networking {
         let decoder = JSONDecoder()
         return try decoder.decode(PokemonModel.self, from: data)
     }
+    
+    func fetchFlavor(number: Int) async throws -> FlavorModel {
+        let url = URL(string: "\(baseURL)-species/\(number)")!
+        let (data,_) = try await URLSession.shared.data(from: url)
+        let decoder = JSONDecoder()
+        return try decoder.decode(FlavorModel.self, from: data)
+    }
 }
