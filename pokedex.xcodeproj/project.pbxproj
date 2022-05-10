@@ -21,6 +21,7 @@
 		B596E05B281E1447002BD6FF /* PokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B596E05A281E1447002BD6FF /* PokemonViewController.swift */; };
 		B5AF6A3C2824837F007B7D23 /* VsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF6A3B2824837F007B7D23 /* VsViewController.swift */; };
 		B5B061B92829DBD1008EA096 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B061B82829DBD1008EA096 /* AppUtility.swift */; };
+		B5B061BB2829ED71008EA096 /* FlavorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B061BA2829ED71008EA096 /* FlavorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		B596E05A281E1447002BD6FF /* PokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewController.swift; sourceTree = "<group>"; };
 		B5AF6A3B2824837F007B7D23 /* VsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VsViewController.swift; sourceTree = "<group>"; };
 		B5B061B82829DBD1008EA096 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
+		B5B061BA2829ED71008EA096 /* FlavorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				B5B061B82829DBD1008EA096 /* AppUtility.swift */,
 				B56BD86D28274BCC00AD4852 /* TypeMatchups.swift */,
 				B596E05A281E1447002BD6FF /* PokemonViewController.swift */,
+				B5B061BA2829ED71008EA096 /* FlavorModel.swift */,
 				B541B086281CFEFC00FBB250 /* Assets.xcassets */,
 				B541B088281CFEFC00FBB250 /* LaunchScreen.storyboard */,
 				B541B08B281CFEFC00FBB250 /* Info.plist */,
@@ -173,6 +176,7 @@
 				B541B092281CFF2700FBB250 /* Networking.swift in Sources */,
 				B56BD86E28274BCC00AD4852 /* TypeMatchups.swift in Sources */,
 				B5AF6A3C2824837F007B7D23 /* VsViewController.swift in Sources */,
+				B5B061BB2829ED71008EA096 /* FlavorModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

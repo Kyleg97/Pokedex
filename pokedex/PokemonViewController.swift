@@ -15,6 +15,8 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var entryNumLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     
+    @IBOutlet weak var flavorLabel: UILabel!
+    
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     
@@ -35,6 +37,8 @@ class PokemonViewController: UIViewController {
     var pokemon: PokemonModel?
     var pokedexEntries: [Result] = []
     var image: UIImage?
+    
+    var flavorText: String?
     
     private func fetchImage() {
         let imageURL = URL(string: (pokemon?.sprites?.other?.officialArtwork?.frontDefault)!)
@@ -82,6 +86,8 @@ class PokemonViewController: UIViewController {
                 activityIndicator.startAnimating()
                 // print("calling pokemonResult...")
                 let pokemonResult = try await networking.fetchPokemon(name: pokemonName!)
+                let flavorResult = try await networking.fetchFlavor(number: pokemonResult.id!)
+                print(flavorResult.flavorTextEntries![0].flavorText!)
                 self.activityIndicator.stopAnimating()
                 // remove blur subview
                 self.view.viewWithTag(100)?.removeFromSuperview()
@@ -97,8 +103,10 @@ class PokemonViewController: UIViewController {
                     // image = fetchImage(pokemon: pokemon)
                     entryNumLabel.text = "#\(pokemon!.id!)"
                     
-                    heightLabel.text = "Height: \(decimetersToInches(height: pokemon!.height!)) inches"
-                    weightLabel.text = "Weight: \(hectogramsToLbs(weight: pokemon!.weight!)) lbs"
+                    flavorLabel.text = "\(flavorResult.flavorTextEntries?[5].flavorText ?? "MissingNo.")"
+                    
+                    // heightLabel.text = "Height: \(decimetersToInches(height: pokemon!.height!)) inches"
+                    // weightLabel.text = "Weight: \(hectogramsToLbs(weight: pokemon!.weight!)) lbs"
                     
                     hpLabel.text = "HP: \(pokemon!.stats![0].baseStat!)"
                     attackLabel.text = "ATK: \(pokemon!.stats![1].baseStat!)"
