@@ -20,6 +20,23 @@ func decimetersToInches(height: Int) -> Int {
     return height * Int(3.937)
 }
 
+func removeLineBreaks(str: String) -> String {
+    /*for char in str {
+        print("character = \(char)")
+    }*/
+    // let trimmedString = myString.components(separatedBy: .whitespacesAndNewlines).joined()
+    var result = ""
+    let components = str.components(separatedBy: .whitespacesAndNewlines)
+    for i in 0...components.count-1 {
+        result += components[i]
+        if (i != components.count-1) {
+            result += " "
+        }
+    }
+    return result
+    // return str.replacingOccurrences(of: "\n\n", with: "\n")
+}
+
 func hasAdvantage(type1: [TypeElement], type2: [TypeElement]) -> Double {
     var multiplier = 1.0
     for i in 0...type1.count-1 {
