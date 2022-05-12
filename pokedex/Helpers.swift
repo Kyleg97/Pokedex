@@ -2,7 +2,7 @@
 //  Helpers.swift
 //  pokedex
 //
-//  Created by JPL-ST-SPRING2021 on 4/30/22.
+//  Created by Kyle Gilbert on 4/30/22.
 //
 
 import Foundation
@@ -20,11 +20,8 @@ func decimetersToInches(height: Int) -> Int {
     return height * Int(3.937)
 }
 
+// used for formatting pokemon flavor text
 func removeLineBreaks(str: String) -> String {
-    /*for char in str {
-        print("character = \(char)")
-    }*/
-    // let trimmedString = myString.components(separatedBy: .whitespacesAndNewlines).joined()
     var result = ""
     let components = str.components(separatedBy: .whitespacesAndNewlines)
     for i in 0...components.count-1 {
@@ -34,7 +31,6 @@ func removeLineBreaks(str: String) -> String {
         }
     }
     return result
-    // return str.replacingOccurrences(of: "\n\n", with: "\n")
 }
 
 func hasAdvantage(type1: [TypeElement], type2: [TypeElement]) -> Double {

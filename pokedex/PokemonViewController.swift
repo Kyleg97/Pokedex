@@ -2,7 +2,7 @@
 //  PokemonViewController.swift
 //  pokedex
 //
-//  Created by JPL-ST-SPRING2021 on 4/30/22.
+//  Created by Kyle Gilbert on 4/30/22.
 //
 
 import UIKit
@@ -44,10 +44,8 @@ class PokemonViewController: UIViewController {
         let imageURL = URL(string: (pokemon?.sprites?.other?.officialArtwork?.frontDefault)!)
         var image: UIImage?
         if let url = imageURL {
-            //All network operations has to run on different thread(not on main thread).
             DispatchQueue.global(qos: .userInitiated).async {
                 let imageData = NSData(contentsOf: url)
-                //All UI operations has to run on main thread.
                 DispatchQueue.main.async {
                     if imageData != nil {
                         image = UIImage(data: imageData as! Data)
@@ -78,30 +76,17 @@ class PokemonViewController: UIViewController {
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        // print("hey there, we're in the correct view controller!")
-        // print("pokemon name: \(pokemonName)")
         nameLabel.text = pokemonName?.firstCapitalized
         Task {
             do {
                 activityIndicator.startAnimating()
-                // print("calling pokemonResult...")
                 let pokemonResult = try await networking.fetchPokemon(name: pokemonName!)
                 let flavorResult = try await networking.fetchFlavor(number: pokemonResult.id!)
-                // print(flavorResult.flavorTextEntries![0].flavorText!)
-                // print(removeLineBreaks(str: flavorResult.flavorTextEntries![0].flavorText!))
                 self.activityIndicator.stopAnimating()
-                // remove blur subview
                 self.view.viewWithTag(100)?.removeFromSuperview()
-                // print(type(of: pokedexEntries.results))
-                /*print("printing the result after fetch...")
-                print(pokemonResult)
-                print("hi")*/
                 await MainActor.run {
                     pokemon = pokemonResult
-                    // print("hello")
-                    // print(pokemon)
                     fetchImage()
-                    // image = fetchImage(pokemon: pokemon)
                     entryNumLabel.text = "#\(pokemon!.id!)"
                     
                     var flavorText = ""
@@ -111,12 +96,7 @@ class PokemonViewController: UIViewController {
                             break
                         }
                     }
-                    // print(flavorResult.flavorTextEntries![0].flavorText!)
                     flavorLabel.text = "\(removeLineBreaks(str: flavorText))"
-                    
-                    
-                    // heightLabel.text = "Height: \(decimetersToInches(height: pokemon!.height!)) inches"
-                    // weightLabel.text = "Weight: \(hectogramsToLbs(weight: pokemon!.weight!)) lbs"
                     
                     hpLabel.text = "HP: \(pokemon!.stats![0].baseStat!)"
                     attackLabel.text = "ATK: \(pokemon!.stats![1].baseStat!)"
@@ -134,30 +114,19 @@ class PokemonViewController: UIViewController {
                     }
                     typeLabel.text = typeString
                 }
-                // now we need to map value of this ^ list into the table somehow, check muni app
             }
         }
     }
     
     @IBAction func onClick(_ sender: UIButton) {
-        // print("button clicked")
-        // performSegue(withIdentifier: "ToListSegue", sender: sender)
         performSegue(withIdentifier: "ReturnPokedexSegue", sender: sender)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*guard let listViewController = segue.destination as? ListViewController else {
-            return
-        }
-        listViewController.pokemon1 = pokemon
-        // print(pokedexEntries)
-        listViewController.pokedexEntries = pokedexEntries
-        listViewController.image1 = image*/
         guard let pokedexViewController = segue.destination as? PokedexViewController else {
             return
         }
         pokedexViewController.pokemon1 = pokemon
-        // print(pokedexEntries)
         pokedexViewController.pokedexEntries = pokedexEntries
         pokedexViewController.image1 = image
         pokedexViewController.compare = true

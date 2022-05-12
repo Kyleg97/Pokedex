@@ -2,7 +2,7 @@
 //  VsViewController.swift
 //  pokedex
 //
-//  Created by JPL-ST-SPRING2021 on 5/5/22.
+//  Created by Kyle Gilbert on 5/5/22.
 //
 
 import UIKit
@@ -79,7 +79,6 @@ class VsViewController: UIViewController {
         self.title = "\(pokemon1!.name!.firstCapitalized) vs \(pokemon2name!.firstCapitalized)"
         self.pokemonImage1.image = image1
         super.viewDidLoad()
-        // print(image1)
         Task {
             do {
                 let pokemonResult = try await networking.fetchPokemon(name: pokemon2name!)
@@ -151,7 +150,7 @@ class VsViewController: UIViewController {
                     
                     let advantage1 = hasAdvantage(type1: (pokemon1?.types)!, type2: (pokemon2?.types)!)
                     let advantage2 = hasAdvantage(type1: (pokemon2?.types)!, type2: (pokemon1?.types)!)
-                    // print("Advantage: \(advantage1)")
+
                     if (advantage1 > advantage2) {
                         advantageLabel.text = "\(pokemon1!.name!.firstCapitalized) has the type advantage over \(pokemon2!.name!.firstCapitalized)"
                     } else if (advantage1 < advantage2) {

@@ -2,7 +2,7 @@
 //  Networking.swift
 //  pokedex
 //
-//  Created by JPL-ST-SPRING2021 on 4/29/22.
+//  Created by Kyle Gilbert on 4/29/22.
 //
 
 import Foundation

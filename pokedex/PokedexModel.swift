@@ -1,7 +1,9 @@
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
+// WEBSITE USED : https://quicktype.io/
 //
-//   let pokedexModel = try? newJSONDecoder().decode(PokedexModel.self, from: jsonData)
+// PokedexModel.swift
+//
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+//
 
 import Foundation
 

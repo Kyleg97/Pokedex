@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  pokedex
 //
-//  Created by JPL-ST-SPRING2021 on 4/29/22.
+//  Created by Kyle Gilbert on 4/29/22.
 //
 
 import UIKit
@@ -43,7 +43,6 @@ class PokedexViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let pokedexEntriesResult = try await networking.fetchPokedex()
                     await MainActor.run {
                         pokedexEntries = pokedexEntriesResult.results ?? []
-                        // print(pokedexEntriesResult)
                         pokedexTable.reloadData()
                     }
                 }
