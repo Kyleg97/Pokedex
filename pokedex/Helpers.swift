@@ -32,7 +32,7 @@ func removeLineBreaks(str: String) -> String {
     }
     return result
 }
-
+// check type advantage, called on each pokemon before comparing
 func hasAdvantage(type1: [TypeElement], type2: [TypeElement]) -> Double {
     var multiplier = 1.0
     for i in 0...type1.count-1 {
