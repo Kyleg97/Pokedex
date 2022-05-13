@@ -1,5 +1,16 @@
 # Pokedex
-An iOS application that replicates a Pokedex of the first 151 Pokemon. 
+Team Members
+- Kyle Gilbert
+- 
+Project Proposal
 
-It retrieves data such as stats and images of Pokemon via API calls.
-One Pokemon can be compared with another to see which has the advantage in battle.
+Create an interactive Pokédex containing the original 151 Pokémon.
+
+Must haves:
+- List of 151 Pokémon
+- Detail screen showing stats and information of each Pokémon
+- Compare two Pokémon to see which has the advantage
+
+Nice to haves:
+- Search bar to easily select Pokémon in the list
+- More visually appealing TableView
