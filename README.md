@@ -1,6 +1,6 @@
 # Pokedex
 Team Members
-- Kyle Gilbert
+- Kyle Gilbert (920913497)
 
 Project Proposal
 - Create an interactive Pokédex containing the original 151 Pokémon.
