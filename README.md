@@ -3,8 +3,7 @@ Team Members
 - Kyle Gilbert
 
 Project Proposal
-
-Create an interactive Pokédex containing the original 151 Pokémon.
+- Create an interactive Pokédex containing the original 151 Pokémon.
 
 Must haves:
 - List of 151 Pokémon
